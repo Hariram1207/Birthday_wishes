@@ -71,6 +71,33 @@
     @keyframes fall { to{transform:translateY(110svh) rotate(720deg);opacity:.1} }
     .sound { position:fixed;right:17px;top:max(15px,env(safe-area-inset-top));z-index:5;border:1px solid #ffc0d344;background:#ffffff12;color:#ffe8ef;border-radius:50%;width:42px;height:42px;font-size:16px; }
     .small-note { color:#c8aabd;font-size:11px;line-height:1.6;margin-top:14px; }
+
+    /* Extra layers of romance and atmosphere */
+    .app:before,.app:after{content:"";position:fixed;width:270px;height:270px;border-radius:50%;filter:blur(65px);opacity:.16;pointer-events:none;z-index:0}
+    .app:before{background:#ff5d9c;top:12%;left:-190px}.app:after{background:#9b70ff;bottom:8%;right:-200px}
+    .topline{position:relative;z-index:2;width:100%;display:flex;justify-content:space-between;align-items:center;color:#d9b8ca;font-size:10px;letter-spacing:.15em;text-transform:uppercase}
+    .topline .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#ff9dbd;box-shadow:0 0 12px #ff9dbd;margin-right:7px}
+    .intro{padding-top:42px;padding-bottom:35px}.intro .eyebrow{display:inline-flex;align-items:center;gap:8px;border:1px solid #ffc3d52c;padding:9px 13px;border-radius:99px;background:#ffffff08}
+    .intro h1{text-shadow:0 5px 35px #ff86b333}.gift-wrap{width:205px;height:205px;margin:10px auto 24px}
+    .gift-wrap:after{content:"";position:absolute;inset:18px;border:1px dashed #ffd4e055;border-radius:50%;animation:spin 24s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}.orbit{position:absolute;width:9px;height:9px;background:#ffe2a8;border-radius:50%;box-shadow:0 0 16px #ffdca1;top:20px;right:24px}
+    .gift-wrap:hover .gift{animation:giftWiggle .55s ease-in-out}@keyframes giftWiggle{0%,100%{transform:rotate(0)}25%{transform:rotate(-7deg)}75%{transform:rotate(7deg)}}
+    .scroll-cue{margin-top:26px;color:#c9aabd;font-size:10px;letter-spacing:.12em}.scroll-cue span{display:block;font-size:18px;margin-top:5px;animation:bob 1.5s infinite}@keyframes bob{50%{transform:translateY(5px)}}
+    .birthday-badge{display:inline-flex;align-items:center;gap:7px;padding:8px 12px;border-radius:99px;border:1px solid #ffb6cc3d;background:#ff9dbd12;color:#ffd8e5;font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+    .celebrate h2{font-size:clamp(42px,12vw,54px);text-shadow:0 8px 34px #ff79a533}.cake-stage{height:238px}
+    .cake-stage:before{content:"";position:absolute;width:230px;height:130px;bottom:14px;border-radius:50%;background:radial-gradient(ellipse,#ff83b329,transparent 70%);filter:blur(10px)}
+    .cake{transform:scale(1.08)}.cake-top:before{content:"";position:absolute;z-index:4;left:24px;top:16px;width:8px;height:8px;background:#fff9e7;border-radius:50%;box-shadow:34px 5px #fff9e7,70px -1px #fff9e7,105px 6px #fff9e7}
+    .cake-side:after{content:"";position:absolute;left:24px;top:32px;width:8px;height:8px;border-radius:50%;background:#ffe5b9;box-shadow:34px 15px #ffe5b9,73px 4px #ffe5b9,112px 17px #ffe5b9}
+    .sparkle-ring{position:absolute;inset:12px;border:1px solid #ffdca122;border-radius:50%;animation:pulse 4s ease-in-out infinite}
+    .message-card{position:relative;overflow:hidden;text-align:left;padding:25px 22px}.message-card:before{content:"“";position:absolute;right:15px;top:-20px;font-family:"Playfair Display",serif;font-size:110px;color:#ffb6cc12}
+    .message-card .letter-title{font-family:"Playfair Display",serif;font-size:25px;color:#ffe3ed;margin:0 0 14px}.message-card p:first-of-type{color:#ffd1e0;font-family:"Playfair Display",serif;font-size:18px}
+    .memory-strip{width:100%;display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:18px 0 4px}.memory-tile{min-height:85px;border:1px solid #ffc0d32b;border-radius:16px;background:linear-gradient(145deg,#ff9dbd1b,#9c79cf12);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;color:#f6d8e4;font-size:10px}.memory-tile b{font-size:22px;font-weight:400}
+    .wish-panel{width:100%;margin-top:20px;padding:20px;border:1px solid #ffcae03a;border-radius:22px;background:linear-gradient(135deg,#ff9dbd12,#b99aff0b)}.wish-panel .wish{margin:0 0 7px;font-size:25px}.wish-panel p{color:#d9bfd0;font-size:12px;line-height:1.6;margin:0}
+    .wish-stars{display:flex;justify-content:center;gap:15px;margin:14px 0 2px;color:#ffdfa8;font-size:19px}.wish-stars span{animation:twinkle 1.8s infinite}.wish-stars span:nth-child(2){animation-delay:.4s}.wish-stars span:nth-child(3){animation-delay:.8s}
+    .signature{margin-top:18px}.primary{position:relative;overflow:hidden}.primary:after{content:"";position:absolute;top:-30%;left:-50%;width:35%;height:160%;background:#ffffff55;transform:rotate(25deg);animation:shine 4s infinite}@keyframes shine{0%,65%{left:-50%}100%{left:140%}}
+    .sound{backdrop-filter:blur(12px);box-shadow:0 6px 24px #0003}.floating-note{position:absolute;color:#ffbfd2;font-family:"Playfair Display",serif;font-style:italic;font-size:13px;opacity:.75;animation:float 5s ease-in-out infinite}.floating-note.one{left:5%;top:26%;transform:rotate(-9deg)}.floating-note.two{right:4%;top:45%;animation-delay:1s;transform:rotate(8deg)}
+    @media(min-width:481px){body{background:#100918}.app{box-shadow:0 0 90px #0008}}
+
     @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration:.01ms !important;animation-iteration-count:1 !important;scroll-behavior:auto !important; } }
   </style>
 </head>
@@ -79,39 +106,38 @@
   <button class="sound" id="soundBtn" aria-label="Toggle soft celebration sounds" title="Sound">♫</button>
   <main class="app">
     <section class="screen intro" id="intro">
-      <div class="eyebrow">A little something, made with love</div>
+      <div class="topline"><span><i class="dot"></i> A private little universe</span><span>20 · ∞</span></div><div class="floating-note one">for you ♡</div><div class="floating-note two">my favourite star ✦</div><div class="eyebrow" style="margin-top:42px">✧ A little something, made with love ✧</div>
       <h1>Hey, <em>Samantha</em>…</h1>
       <p class="sub">The stars have been keeping a little secret. Tonight, this tiny universe is all yours.</p>
       <div class="gift-wrap" aria-hidden="true">
-        <div class="halo"></div>
+        <div class="halo"></div><div class="orbit"></div>
         <div class="gift"><div class="bow"></div><div class="gift-lid"></div><div class="gift-box"></div></div>
       </div>
-      <button class="btn" id="openBtn">Open your surprise <span aria-hidden="true">♡</span></button>
-      <div class="tiny">Psst… tap the button ✨</div>
+      <button class="btn" id="openBtn">Unwrap the magic <span aria-hidden="true">♡</span></button>
+      <div class="tiny">Psst… tap the button ✨</div><div class="scroll-cue">A LITTLE MAGIC IS WAITING<span>⌄</span></div>
     </section>
 
     <section class="screen celebrate hidden" id="celebrate">
-      <div class="eyebrow reveal">Today is your day</div>
-      <h2 class="reveal">Happy Birthday,<br><span>Samantha!</span></h2>
+      <div class="birthday-badge reveal">✦ &nbsp; Today the universe celebrates you &nbsp; ✦</div>
+      <h2 class="reveal">Happy Birthday,<br><span>my Samantha!</span></h2>
       <p class="sub reveal">A wish for the girl who makes ordinary moments feel like magic.</p>
-      <div class="cake-stage reveal" aria-label="Animated birthday cake with a glowing candle">
+      <div class="cake-stage reveal" aria-label="Animated birthday cake with a glowing candle"><div class="sparkle-ring"></div>
         <span class="cake-spark" style="left:12%;top:35%">✦</span><span class="cake-spark" style="right:12%;top:18%">✧</span><span class="cake-spark" style="right:8%;bottom:25%">✦</span>
         <div class="cake"><div class="candle"><div class="flame"></div></div><div class="cake-top"></div><div class="cake-side"></div><div class="plate"></div></div>
       </div>
       <div class="message-card reveal">
-        <div class="eyebrow" style="margin-bottom:13px">A note from my heart</div>
+        <div class="eyebrow" style="margin-bottom:13px">✧ A note from my heart ✧</div><div class="letter-title">To my sweetest Samantha,</div>
         <p>To my favourite person,</p>
         <p style="margin-top:10px">I hope this new chapter brings you a thousand reasons to smile, dreams that come true, and beautiful little surprises around every corner. You deserve all the happiness in the world — not just today, but every single day.</p>
         <p style="margin-top:10px">Thank you for being you, for your laughter, your warmth, and the magic you bring into my life. If I could make one wish for you, it would be that you always see yourself the way I see you: absolutely wonderful.</p>
         <div class="signature">With all my love ♡</div>
       </div>
-      <div class="wish reveal">Make a wish, beautiful ✨</div>
-      <p class="small-note reveal">Close your eyes, take a deep breath, and let this year be your most magical one yet.</p>
+      <div class="memory-strip reveal"><div class="memory-tile"><b>♡</b><span>Endless love</span></div><div class="memory-tile"><b>✧</b><span>Little wonders</span></div><div class="memory-tile"><b>∞</b><span>Us, always</span></div></div><div class="wish-panel reveal"><div class="wish">Make a wish, beautiful ✨</div><p>Close your eyes, take a deep breath, and send your biggest dream into the stars.</p><div class="wish-stars"><span>✦</span><span>✧</span><span>✦</span></div></div>
       <div class="bottom-actions reveal">
         <button class="btn secondary" id="wishBtn">Make a wish ✨</button>
         <button class="btn primary" id="againBtn">Replay surprise ↻</button>
       </div>
-      <div class="footer">MADE WITH LOVE · JUST FOR SAMANTHA</div>
+      <div class="footer">A LITTLE UNIVERSE · MADE JUST FOR SAMANTHA</div>
     </section>
   </main>
   <script>
