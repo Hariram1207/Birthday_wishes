@@ -15,7 +15,7 @@
     html { scroll-behavior:smooth; }
     body { margin:0; min-height:100svh; color:var(--cream); background:radial-gradient(ellipse at 50% 0%,#482047 0%,#24132f 42%,#110a1b 100%); font-family:"DM Sans",sans-serif; overflow-x:hidden; }
     button { font:inherit; }
-    .app { width:100%; max-width:480px; min-height:100svh; margin:0 auto; position:relative; overflow:hidden; padding: max(22px,env(safe-area-inset-top)) 22px max(28px,env(safe-area-inset-bottom)); }
+    .app { width:100%; max-width:480px; min-height:100svh; margin:0 auto; position:relative; overflow-x:clip; padding: max(22px,env(safe-area-inset-top)) 22px max(28px,env(safe-area-inset-bottom)); }
     .stars,.hearts,.confetti { position:fixed; inset:0; pointer-events:none; overflow:hidden; z-index:0; }
     .star { position:absolute; width:3px; height:3px; border-radius:50%; background:#fff2d9; opacity:.65; animation:twinkle 3s ease-in-out infinite; }
     @keyframes twinkle { 0%,100%{opacity:.2;transform:scale(.7)} 50%{opacity:1;transform:scale(1.5)} }
@@ -58,60 +58,67 @@
     @keyframes flicker { to{transform:rotate(7deg) scale(.86)} }
     .cake-spark { position:absolute;color:#ffe1a9;font-size:17px;animation:twinkle 2s infinite; }
 
-    /* Interactive Tap-to-Open Romantic Notebook */
+    /* Compact & Smoothly Expanding Romantic Notebook */
     .notebook-stage {
       width:100%;
-      margin:14px 0 10px;
-      perspective:1600px;
+      margin:14px 0 12px;
+      perspective:1800px;
     }
     .notebook-book {
       position:relative;
       width:100%;
-      min-height:330px;
-      transform-style:preserve-3d;
-      transition:transform .6s cubic-bezier(.22,.85,.35,1);
-    }
-    /* Closed state slightly narrower like a bound book */
-    .notebook-book:not(.is-open) {
-      max-width:330px;
+      max-width:296px;
+      height:355px; /* Compact diary size when closed */
       margin:0 auto;
+      transform-style:preserve-3d;
+      transition:
+        max-width .75s cubic-bezier(.22, 1, .36, 1),
+        height .75s cubic-bezier(.22, 1, .36, 1),
+        transform .55s cubic-bezier(.22, 1, .36, 1);
+    }
+    .notebook-book:not(.is-open) {
       cursor:pointer;
     }
     .notebook-book:not(.is-open):hover {
-      transform:translateY(-4px) rotate(-1deg);
+      transform:translateY(-4px) rotate(-1.2deg);
     }
-    /* Page stack thickness on right edge */
+    .notebook-book.is-open {
+      max-width:100%;
+    }
+
+    /* Realistic stacked pages edge on right */
     .notebook-book:before {
       content:"";
       position:absolute;
-      top:5px; bottom:5px; right:-5px; width:10px;
+      top:7px; bottom:7px; right:-6px; width:10px;
       border-radius:0 16px 16px 0;
-      background:repeating-linear-gradient(90deg, #f7dbe5 0 2px, #c498ab 2px 4px);
-      box-shadow:0 16px 35px #07020c88;
+      background:repeating-linear-gradient(90deg, #f5dce5 0 2px, #b98ea1 2px 4px);
+      box-shadow:0 18px 36px #06020b88;
       z-index:0;
-      transition:opacity .4s ease;
     }
 
-    /* Front Cover (Tap to Open) */
+    /* Front Cover */
     .notebook-cover {
       position:absolute;
       inset:0;
       z-index:5;
-      border-radius:10px 22px 22px 10px;
+      border-radius:12px 22px 22px 12px;
       transform-origin:left center;
       transform:rotateY(0deg);
-      backface-visibility:hidden;
-      transition:transform .95s cubic-bezier(.25,.85,.3,1), opacity .45s ease .45s;
+      transition:
+        transform 1.05s cubic-bezier(.22, 1, .36, 1),
+        opacity .45s ease .45s,
+        box-shadow .8s ease;
       background:
-        radial-gradient(circle at 80% 15%, #ff8fb529, transparent 55%),
-        linear-gradient(145deg, #3c1846 0%, #240f2e 55%, #190a21 100%);
-      border:1px solid #ffbfd34d;
-      border-left:14px solid #16081e;
+        radial-gradient(circle at 75% 20%, #ff9dbd24, transparent 58%),
+        linear-gradient(150deg, #3a1644 0%, #230e2c 58%, #17091f 100%);
+      border:1px solid #ffbfd344;
+      border-left:16px solid #13061b;
       box-shadow:
-        0 22px 45px #06020b99,
-        inset 3px 0 8px #ff9dbd2e,
-        inset 0 0 0 1px #ffdca11f;
-      padding:26px 22px 24px 26px;
+        0 20px 42px #05010a99,
+        inset 3px 0 8px #ff9dbd29,
+        inset 0 0 0 1px #ffdca11c;
+      padding:24px 20px 22px 22px;
       display:flex;
       flex-direction:column;
       align-items:center;
@@ -119,74 +126,74 @@
       text-align:center;
       overflow:hidden;
     }
-    /* Gold foil inner frame on cover */
+    /* Delicate gold foil border */
     .notebook-cover:before {
       content:"";
       position:absolute;
-      inset:12px 12px 12px 10px;
-      border:1px solid #ffdca13d;
-      border-radius:6px 15px 15px 6px;
+      inset:11px 11px 11px 9px;
+      border:1px solid #ffdca138;
+      border-radius:7px 15px 15px 7px;
       pointer-events:none;
     }
-    /* Vertical satin ribbon bookmark */
+    /* Elastic strap / satin ribbon */
     .cover-ribbon {
       position:absolute;
-      top:0; right:32px;
-      width:16px; height:100%;
-      background:linear-gradient(90deg, #d94c7f, #ff8fb5 50%, #c43b6d);
-      box-shadow:0 0 14px #ff6f9e44;
+      top:0; right:26px;
+      width:12px; height:100%;
+      background:linear-gradient(90deg, #c93f72, #ff87b0 50%, #b53263);
+      box-shadow:-2px 0 10px #0005;
       pointer-events:none;
     }
     .cover-badge {
       position:relative; z-index:2;
-      font-size:10px; letter-spacing:.22em; text-transform:uppercase;
+      font-size:9px; letter-spacing:.2em; text-transform:uppercase;
       color:#ffdca1; font-weight:700;
-      padding:6px 12px; border-radius:99px;
-      border:1px solid #ffdca138; background:#ffdca10f;
+      padding:5px 11px; border-radius:99px;
+      border:1px solid #ffdca136; background:#ffdca10d;
     }
     .cover-emblem {
       position:relative; z-index:2;
-      margin:8px 0;
+      padding:0 6px;
     }
     .cover-heart-seal {
-      width:62px; height:62px; margin:0 auto 14px;
+      width:54px; height:54px; margin:0 auto 12px;
       border-radius:50%;
-      background:radial-gradient(circle at 35% 30%, #ffb0ca, #df5387 65%, #992752);
-      border:2px solid #ffe4b877;
-      box-shadow:0 10px 25px #0007, 0 0 24px #ff7aa844;
+      background:radial-gradient(circle at 35% 30%, #ffb4cd, #dc4e82 68%, #93234d);
+      border:1.5px solid #ffe4b877;
+      box-shadow:0 8px 20px #0007, 0 0 20px #ff7aa83d;
       display:grid; place-items:center;
-      font-size:26px; color:#fff5e4;
+      font-size:22px; color:#fff5e4;
       animation:pulse 2.8s ease-in-out infinite;
     }
     .cover-title {
       font-family:"Playfair Display",serif;
       font-style:italic;
-      font-size:28px;
-      line-height:1.15;
+      font-size:25px;
+      line-height:1.18;
       color:#ffe6ef;
-      text-shadow:0 4px 18px #ff85b333;
-      margin-bottom:6px;
+      text-shadow:0 4px 16px #ff85b333;
+      margin-bottom:5px;
     }
     .cover-sub {
       font-family:"Caveat",cursive;
-      font-size:20px;
-      color:#f2c6d8;
+      font-size:18px;
+      color:#eec0d3;
     }
     .tap-open-pill {
       position:relative; z-index:2;
-      display:inline-flex; align-items:center; gap:8px;
-      padding:10px 18px;
+      display:inline-flex; align-items:center; gap:7px;
+      padding:9px 16px;
       border-radius:999px;
       background:linear-gradient(100deg, #ffd6a4, #ff9dbd);
       color:#321426;
-      font-size:12px; font-weight:700;
-      box-shadow:0 8px 22px #ff8eb344;
+      font-size:11.5px; font-weight:700;
+      box-shadow:0 8px 20px #ff8eb344;
       animation:float 2.6s ease-in-out infinite;
     }
 
-    /* Open state flips cover away */
+    /* Smooth 3D Cover Swing Open */
     .notebook-book.is-open .notebook-cover {
-      transform:rotateY(-165deg);
+      transform:rotateY(-155deg);
       opacity:0;
       pointer-events:none;
     }
@@ -196,23 +203,25 @@
       position:relative; z-index:1; width:100%; text-align:left;
       border:1px solid #ffbfd338;
       border-left:4px solid #ff8fb588;
-      border-radius:6px 20px 20px 6px;
-      padding:28px 20px 24px 44px;
+      border-radius:8px 20px 20px 8px;
+      padding:26px 20px 24px 44px;
       background:
         linear-gradient(90deg, transparent 32px, #ff7aa838 32px, #ff7aa838 33.5px, transparent 33.5px),
         repeating-linear-gradient(to bottom, transparent 0px, transparent 31px, #ffc6d91a 31px, #ffc6d91a 32px),
-        linear-gradient(155deg,#2e1639f5,#1c0e27fa);
+        linear-gradient(155deg,#2e1639f7,#1c0e27fc);
       background-position: 0 0, 0 18px, 0 0;
       box-shadow:0 20px 45px #08030b66, inset 12px 0 24px #0b041266;
       backdrop-filter:blur(12px);
       overflow:hidden;
       opacity:0;
-      transform:scale(.97);
-      transition:opacity .5s ease .25s, transform .5s ease .25s;
+      transform:translateY(8px) scale(.98);
+      transition:
+        opacity .65s cubic-bezier(.22, 1, .36, 1) .2s,
+        transform .65s cubic-bezier(.22, 1, .36, 1) .2s;
     }
     .notebook-book.is-open .message-card {
       opacity:1;
-      transform:scale(1);
+      transform:translateY(0) scale(1);
     }
     .notebook-book:not(.is-open) .message-card {
       pointer-events:none;
@@ -244,7 +253,9 @@
       padding:4px 10px;
       border-radius:99px;
       cursor:pointer;
+      transition:background .2s, transform .2s;
     }
+    .close-book-btn:active { transform:scale(.95); }
     .message-card .letter-title {
       font-family:"Playfair Display",serif; font-style:italic;
       font-size:24px; line-height:32px; color:#ffe3ed; margin:0 0 8px;
@@ -361,7 +372,7 @@
           </div>
 
           <!-- Inside Ruled Page -->
-          <div class="message-card">
+          <div class="message-card" id="notebookPage">
             <div class="notebook-holes" aria-hidden="true">
               <span></span><span></span><span></span><span></span><span></span>
             </div>
@@ -433,24 +444,49 @@
       }
     }
 
-    // Notebook Open / Close interaction
+    // Smooth Notebook Open / Close with Dynamic Height Transition
     const notebookBook = $('notebookBook');
     const notebookCover = $('notebookCover');
+    const notebookPage = $('notebookPage');
+    const CLOSED_HEIGHT = '355px';
+
     function openNotebook() {
       if (notebookBook.classList.contains('is-open')) return;
+      notebookBook.style.height = CLOSED_HEIGHT;
+      // Measure full height of the inner note at expanded width
       notebookBook.classList.add('is-open');
+      const targetHeight = notebookPage.scrollHeight + 'px';
+      notebookBook.style.height = targetHeight;
+
       hearts(14);
       playTone(587,.18,.03);
       setTimeout(()=>playTone(880,.28,.03),140);
+
+      setTimeout(() => {
+        if (notebookBook.classList.contains('is-open')) {
+          notebookBook.style.height = 'auto';
+        }
+      }, 780);
     }
+
+    function closeNotebook() {
+      if (!notebookBook.classList.contains('is-open')) return;
+      // Lock current pixel height first so CSS transition animates smoothly back down
+      notebookBook.style.height = notebookBook.offsetHeight + 'px';
+      requestAnimationFrame(() => {
+        notebookBook.classList.remove('is-open');
+        notebookBook.style.height = CLOSED_HEIGHT;
+      });
+      playTone(523,.18,.025);
+    }
+
     notebookCover.addEventListener('click', openNotebook);
     notebookCover.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openNotebook(); }
     });
     $('closeNotebookBtn').addEventListener('click', (e) => {
       e.stopPropagation();
-      notebookBook.classList.remove('is-open');
-      playTone(523,.18,.025);
+      closeNotebook();
     });
 
     function reveal() {
@@ -463,6 +499,7 @@
     $('wishBtn').addEventListener('click',()=>{confetti(65);hearts(20);playTone(880,.3,.04);$('wishBtn').textContent='Your wish is on its way ✨';});
     $('againBtn').addEventListener('click',()=>{
       notebookBook.classList.remove('is-open');
+      notebookBook.style.height = CLOSED_HEIGHT;
       $('celebrate').classList.add('hidden'); $('intro').classList.remove('hidden');
       $('wishBtn').textContent='Make a wish ✨'; window.scrollTo({top:0,behavior:'smooth'});
     });
