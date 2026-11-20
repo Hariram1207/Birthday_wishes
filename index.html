@@ -1,3 +1,11 @@
+Here is your updated `index.html`. Everything in your original theme, layout, colors, typography, and animations remains untouched, with the **Blow Out the Candles** effect seamlessly integrated:
+
+* **Two ways to blow out the candle:** She can either **blow into her phone/laptop microphone** (which also makes the flame flicker and tilt dynamically with her breath) or simply **tap the cake / candle** if she is in a quiet place or denies mic access.
+* **Smoke & Sparkle Effect:** Blowing out the candle smoothly extinguishes the flame, releases drifting smoke wisps, triggers confetti and rising hearts, plays a soft celebratory chime (if sound is toggled on), and lets her relight it anytime or replay the surprise.
+
+
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,7 +54,7 @@
     .celebrate { padding-top:32px; padding-bottom:34px; justify-content:flex-start; }
     .celebrate h2 { font-size:43px; line-height:1.08; margin:15px 0 8px; }
     .celebrate h2 span { color:var(--pink); font-style:italic; }
-    .cake-stage { width:100%; max-width:300px; height:220px; position:relative; margin:12px auto 12px; display:grid; place-items:center; }
+    .cake-stage { width:100%; max-width:300px; height:220px; position:relative; margin:12px auto 12px; display:grid; place-items:center; cursor:pointer; }
     .cake { position:relative; width:190px;height:125px; margin-top:42px; filter:drop-shadow(0 14px 20px #0007); }
     .cake-top { position:absolute;top:0;left:9px;width:172px;height:47px;border-radius:50%;background:linear-gradient(135deg,#fff0db,#f7b9c9);z-index:3; }
     .cake-top:after { content:"";position:absolute;left:0;right:0;top:22px;height:25px;background:#f6c1cf;border-radius:0 0 50% 50%; }
@@ -54,8 +62,14 @@
     .cake-side:before { content:"";position:absolute;left:0;right:0;top:0;height:12px;background:#fff0df;border-radius:50%; }
     .plate { position:absolute;bottom:4px;left:-5px;width:200px;height:18px;background:linear-gradient(#fff0e5,#cda5b7);border-radius:50%; }
     .candle { position:absolute;z-index:5;top:-38px;left:88px;width:13px;height:45px;border-radius:4px;background:repeating-linear-gradient(135deg,#fff0d4 0 6px,#f28eae 6px 12px); }
-    .flame { position:absolute;left:1px;top:-22px;width:11px;height:19px;background:radial-gradient(ellipse at 50% 70%,#fff7bd 0 20%,#ffc65e 42%,#ff7e53 72%,transparent 74%);border-radius:50% 50% 45% 45%;transform-origin:50% 100%;animation:flicker .7s ease-in-out infinite alternate;filter:drop-shadow(0 0 9px #ffc35c); }
+    .candle:before { content:"";position:absolute;left:5.5px;top:-6px;width:2px;height:6px;background:#3a222b;border-radius:2px; }
+    .flame { position:absolute;left:1px;top:-22px;width:11px;height:19px;background:radial-gradient(ellipse at 50% 70%,#fff7bd 0 20%,#ffc65e 42%,#ff7e53 72%,transparent 74%);border-radius:50% 50% 45% 45%;transform-origin:50% 100%;animation:flicker .7s ease-in-out infinite alternate;filter:drop-shadow(0 0 9px #ffc35c);transition:opacity .35s ease, transform .25s ease; }
     @keyframes flicker { to{transform:rotate(7deg) scale(.86)} }
+    .flame.out { opacity:0 !important; transform:scale(.15) translateY(8px) !important; animation:none !important; }
+    .smoke-puff { position:absolute;left:4px;top:-14px;width:7px;height:7px;border-radius:50%;background:radial-gradient(circle,#fff5faaa,#d8bfd044 65%,transparent);pointer-events:none;animation:smokeRise 1.9s ease-out forwards; }
+    @keyframes smokeRise { 0%{opacity:.85;transform:translate(0,0) scale(.6)} 50%{opacity:.5;transform:translate(var(--drift,8px),-26px) scale(1.6)} 100%{opacity:0;transform:translate(calc(var(--drift,8px) * -0.7),-54px) scale(2.4)} }
+    .blow-hint { position:relative;z-index:2;display:inline-flex;align-items:center;gap:6px;margin:-4px auto 14px;padding:7px 14px;border-radius:999px;border:1px solid #ffdca133;background:#ffffff0a;color:#ffe3b8;font-size:11px;letter-spacing:.04em;cursor:pointer;transition:background .2s,border-color .2s; }
+    .blow-hint:hover { background:#ffffff14;border-color:#ffdca166; }
     .cake-spark { position:absolute;color:#ffe1a9;font-size:17px;animation:twinkle 2s infinite; }
     .message-card { width:100%; border:1px solid #ffbfd32e; border-radius:24px; padding:22px 20px; background:linear-gradient(145deg,#ffffff10,#ffffff05); box-shadow:0 18px 45px #08030b30; backdrop-filter:blur(12px); }
     .message-card p { color:#f1dce6; font-size:14px; line-height:1.85; margin:0; }
@@ -118,13 +132,14 @@
     </section>
 
     <section class="screen celebrate hidden" id="celebrate">
-      <div class="birthday-badge reveal">✦ &nbsp; Today the universe celebrates you &nbsp; ✦</div>
+      <div class="birthday-badge reveal">✦   Today the universe celebrates you   ✦</div>
       <h2 class="reveal">Happy Birthday,<br><span>my Samantha!</span></h2>
       <p class="sub reveal">A wish for the girl who makes ordinary moments feel like magic.</p>
-      <div class="cake-stage reveal" aria-label="Animated birthday cake with a glowing candle"><div class="sparkle-ring"></div>
+      <div class="cake-stage reveal" id="cakeStage" role="button" tabindex="0" aria-label="Animated birthday cake with a glowing candle. Blow or tap to blow out the candle."><div class="sparkle-ring"></div>
         <span class="cake-spark" style="left:12%;top:35%">✦</span><span class="cake-spark" style="right:12%;top:18%">✧</span><span class="cake-spark" style="right:8%;bottom:25%">✦</span>
-        <div class="cake"><div class="candle"><div class="flame"></div></div><div class="cake-top"></div><div class="cake-side"></div><div class="plate"></div></div>
+        <div class="cake"><div class="candle" id="candle"><div class="flame" id="flame"></div></div><div class="cake-top"></div><div class="cake-side"></div><div class="plate"></div></div>
       </div>
+      <button type="button" class="blow-hint reveal" id="blowHint">🌬️ Blow on your mic or tap the cake to make a wish</button>
       <div class="message-card reveal">
         <div class="eyebrow" style="margin-bottom:13px">✧ A note from my heart ✧</div><div class="letter-title">To my sweetest Samantha,</div>
         <p>To my favourite person,</p>
@@ -149,7 +164,7 @@
       s.style.animationDelay=(Math.random()*4)+'s'; s.style.opacity=(.2+Math.random()*.6);
       stars.appendChild(s);
     }
-    let audioCtx=null, soundOn=false, soundTimer=null;
+    let audioCtx=null, soundOn=false;
     function playTone(freq=660,duration=.16,volume=.035) {
       if (!soundOn) return;
       try {
@@ -183,18 +198,124 @@
         $('confetti').appendChild(c); setTimeout(()=>c.remove(),6000);
       }
     }
+
+    /* Blow out the candles logic (Microphone + Tap fallback) */
+    let candleLit = true, micStream = null, micRaf = null, micCtx = null;
+
+    function spawnSmoke() {
+      for (let i = 0; i < 6; i++) {
+        setTimeout(() => {
+          const s = document.createElement('span');
+          s.className = 'smoke-puff';
+          s.style.setProperty('--drift', ((Math.random() - 0.5) * 26) + 'px');
+          $('candle').appendChild(s);
+          setTimeout(() => s.remove(), 2000);
+        }, i * 160);
+      }
+    }
+
+    function stopMic() {
+      if (micRaf) { cancelAnimationFrame(micRaf); micRaf = null; }
+      if (micStream) { micStream.getTracks().forEach(t => t.stop()); micStream = null; }
+      if (micCtx) { micCtx.close().catch(() => {}); micCtx = null; }
+    }
+
+    function blowOutCandle() {
+      if (!candleLit) return;
+      candleLit = false;
+      $('flame').classList.add('out');
+      $('flame').style.transform = '';
+      spawnSmoke();
+      stopMic();
+      $('blowHint').textContent = '✨ Wish sent to the stars! (Tap to relight)';
+      $('wishBtn').textContent = 'Your wish is on its way ✨';
+      confetti(95);
+      hearts(22);
+      [587, 740, 880, 1175].forEach((f, i) => setTimeout(() => playTone(f, .28, .03), i * 140));
+    }
+
+    function relightCandle() {
+      candleLit = true;
+      $('flame').classList.remove('out');
+      $('blowHint').textContent = '🌬️ Blow on your mic or tap the cake to make a wish';
+      startMicListener();
+    }
+
+    async function startMicListener() {
+      if (!candleLit || micStream || !navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return;
+      try {
+        micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        micCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const source = micCtx.createMediaStreamSource(micStream);
+        const analyser = micCtx.createAnalyser();
+        analyser.fftSize = 256;
+        source.connect(analyser);
+        const data = new Uint8Array(analyser.frequencyBinCount);
+        let blowFrames = 0;
+
+        const checkBlow = () => {
+          if (!candleLit || !micStream) return;
+          analyser.getByteFrequencyData(data);
+          // Low-frequency wind energy indicates blowing into the mic
+          let lowSum = 0;
+          for (let i = 0; i < 16; i++) lowSum += data[i];
+          const avg = lowSum / 16;
+
+          if (avg > 45) {
+            blowFrames++;
+            const tilt = Math.min(34, (avg - 40) * 0.7);
+            const scale = Math.max(0.45, 1 - (avg - 45) / 140);
+            $('flame').style.animation = 'none';
+            $('flame').style.transform = `rotate(${tilt}deg) scale(${scale})`;
+            if (blowFrames > 10) {
+              blowOutCandle();
+              return;
+            }
+          } else {
+            blowFrames = Math.max(0, blowFrames - 1);
+            if (blowFrames === 0 && candleLit) {
+              $('flame').style.animation = '';
+              $('flame').style.transform = '';
+            }
+          }
+          micRaf = requestAnimationFrame(checkBlow);
+        };
+        checkBlow();
+      } catch (e) {
+        $('blowHint').textContent = '✨ Tap the cake to blow out the candle';
+      }
+    }
+
+    function toggleCandle() {
+      if (candleLit) blowOutCandle();
+      else relightCandle();
+    }
+
+    $('cakeStage').addEventListener('click', toggleCandle);
+    $('cakeStage').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleCandle(); }
+    });
+    $('blowHint').addEventListener('click', toggleCandle);
+
     function reveal() {
       $('intro').classList.add('hidden'); $('celebrate').classList.remove('hidden');
       $('celebrate').classList.add('reveal'); confetti(120); hearts(24);
       [523,659,784,1046].forEach((f,i)=>setTimeout(()=>playTone(f,.25,.025),i*170));
+      relightCandle();
       window.scrollTo({top:0,behavior:'smooth'});
     }
     $('openBtn').addEventListener('click',reveal);
-    $('wishBtn').addEventListener('click',()=>{confetti(65);hearts(20);playTone(880,.3,.04);$('wishBtn').textContent='Your wish is on its way ✨';});
+    $('wishBtn').addEventListener('click',()=>{
+      if (candleLit) blowOutCandle();
+      else { confetti(65); hearts(20); playTone(880,.3,.04); $('wishBtn').textContent='Your wish is on its way ✨'; }
+    });
     $('againBtn').addEventListener('click',()=>{
+      stopMic();
       $('celebrate').classList.add('hidden'); $('intro').classList.remove('hidden');
       $('wishBtn').textContent='Make a wish ✨'; window.scrollTo({top:0,behavior:'smooth'});
     });
   </script>
 </body>
 </html>
+
+```
