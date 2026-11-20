@@ -8,7 +8,7 @@
   <title>For Samantha ✨</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
   <style>
     :root { --night:#170d25; --plum:#291333; --pink:#ff9dbd; --rose:#ff6f9e; --cream:#fff0e8; --gold:#ffdca1; }
     * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
@@ -57,9 +57,96 @@
     .flame { position:absolute;left:1px;top:-22px;width:11px;height:19px;background:radial-gradient(ellipse at 50% 70%,#fff7bd 0 20%,#ffc65e 42%,#ff7e53 72%,transparent 74%);border-radius:50% 50% 45% 45%;transform-origin:50% 100%;animation:flicker .7s ease-in-out infinite alternate;filter:drop-shadow(0 0 9px #ffc35c); }
     @keyframes flicker { to{transform:rotate(7deg) scale(.86)} }
     .cake-spark { position:absolute;color:#ffe1a9;font-size:17px;animation:twinkle 2s infinite; }
-    .message-card { width:100%; border:1px solid #ffbfd32e; border-radius:24px; padding:22px 20px; background:linear-gradient(145deg,#ffffff10,#ffffff05); box-shadow:0 18px 45px #08030b30; backdrop-filter:blur(12px); }
-    .message-card p { color:#f1dce6; font-size:14px; line-height:1.85; margin:0; }
-    .signature { color:var(--pink); font-family:"Playfair Display",serif; font-style:italic; font-size:22px; margin-top:14px; }
+
+    /* Romantic Notebook Style Card */
+    .notebook-wrap { position:relative; width:100%; margin:12px 0 8px; }
+    .notebook-wrap:before {
+      content:""; position:absolute; inset:6px -4px -6px 5px;
+      border-radius:6px 20px 20px 6px;
+      background:linear-gradient(145deg,#33183d,#1e0e29);
+      border:1px solid #ffbfd322;
+      transform:rotate(1.4deg);
+      z-index:0;
+      box-shadow:0 16px 35px #07020c66;
+    }
+    .notebook-tape {
+      position:absolute; top:-11px; left:50%; transform:translateX(-50%) rotate(-2deg);
+      width:96px; height:22px; z-index:4;
+      background:linear-gradient(90deg,#ffdca133,#ff9dbd44,#ffdca133);
+      border-left:1px dashed #ffe6b855; border-right:1px dashed #ffe6b855;
+      backdrop-filter:blur(4px);
+    }
+    .message-card {
+      position:relative; z-index:1; width:100%; text-align:left;
+      border:1px solid #ffbfd338;
+      border-left:4px solid #ff8fb588;
+      border-radius:6px 20px 20px 6px;
+      padding:30px 22px 26px 46px;
+      background:
+        /* Vertical rose margin line */
+        linear-gradient(90deg, transparent 33px, #ff7aa838 33px, #ff7aa838 34.5px, transparent 34.5px),
+        /* Ruled notebook lines */
+        repeating-linear-gradient(to bottom, transparent 0px, transparent 31px, #ffc6d91a 31px, #ffc6d91a 32px),
+        /* Soft twilight paper base */
+        linear-gradient(155deg,#2e1639f2,#1c0e27f5);
+      background-position: 0 0, 0 18px, 0 0;
+      box-shadow:0 20px 45px #08030b55, inset 12px 0 24px #0b041266;
+      backdrop-filter:blur(12px);
+      overflow:hidden;
+    }
+    /* Notebook binding holes */
+    .notebook-holes {
+      position:absolute; left:11px; top:28px; bottom:28px; width:12px;
+      display:flex; flex-direction:column; justify-content:space-between;
+      pointer-events:none; z-index:2;
+    }
+    .notebook-holes span {
+      width:11px; height:11px; border-radius:50%;
+      background:#13091d;
+      border:1px solid #ffb6cc38;
+      box-shadow:inset 0 2px 4px #0009;
+    }
+    .notebook-date {
+      display:flex; justify-content:space-between; align-items:center;
+      font-family:"Caveat",cursive; font-size:17px; color:#ffdca1cc;
+      line-height:32px; margin-bottom:2px;
+    }
+    .message-card .letter-title {
+      font-family:"Playfair Display",serif; font-style:italic;
+      font-size:24px; line-height:32px; color:#ffe3ed; margin:0 0 8px;
+    }
+    .message-card p {
+      font-family:"Caveat",cursive;
+      color:#f7e2ec;
+      font-size:21px;
+      line-height:32px;
+      letter-spacing:.01em;
+      margin:0 0 16px;
+    }
+    .message-card p.salutation {
+      color:#ffadc8;
+      font-size:22px;
+      margin-bottom:8px;
+    }
+    .signature-row {
+      display:flex; align-items:center; justify-content:space-between;
+      margin-top:8px; line-height:32px;
+    }
+    .signature {
+      color:var(--pink); font-family:"Caveat",cursive;
+      font-size:26px; font-weight:600; margin:0;
+      transform:rotate(-1.5deg);
+    }
+    .wax-seal {
+      width:36px; height:36px; border-radius:50%;
+      background:radial-gradient(circle at 35% 35%, #ff9dbd, #d64b7e 70%, #9e2d58);
+      border:2px solid #ffd4e266;
+      box-shadow:0 4px 12px #0006, inset 0 0 6px #57122c;
+      display:grid; place-items:center;
+      color:#fff0d8; font-size:15px;
+      transform:rotate(8deg);
+    }
+
     .wish { font-family:"Playfair Display",serif; color:#ffe0b5; font-size:24px; margin:22px 0 8px; }
     .bottom-actions { display:flex;gap:10px;width:100%;margin-top:18px; }
     .secondary { background:#ffffff12;color:#ffe5ed;border:1px solid #ffc0d344;box-shadow:none;flex:1;padding:14px 12px;font-size:12px; }
@@ -89,12 +176,10 @@
     .cake{transform:scale(1.08)}.cake-top:before{content:"";position:absolute;z-index:4;left:24px;top:16px;width:8px;height:8px;background:#fff9e7;border-radius:50%;box-shadow:34px 5px #fff9e7,70px -1px #fff9e7,105px 6px #fff9e7}
     .cake-side:after{content:"";position:absolute;left:24px;top:32px;width:8px;height:8px;border-radius:50%;background:#ffe5b9;box-shadow:34px 15px #ffe5b9,73px 4px #ffe5b9,112px 17px #ffe5b9}
     .sparkle-ring{position:absolute;inset:12px;border:1px solid #ffdca122;border-radius:50%;animation:pulse 4s ease-in-out infinite}
-    .message-card{position:relative;overflow:hidden;text-align:left;padding:25px 22px}.message-card:before{content:"“";position:absolute;right:15px;top:-20px;font-family:"Playfair Display",serif;font-size:110px;color:#ffb6cc12}
-    .message-card .letter-title{font-family:"Playfair Display",serif;font-size:25px;color:#ffe3ed;margin:0 0 14px}.message-card p:first-of-type{color:#ffd1e0;font-family:"Playfair Display",serif;font-size:18px}
     .memory-strip{width:100%;display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:18px 0 4px}.memory-tile{min-height:85px;border:1px solid #ffc0d32b;border-radius:16px;background:linear-gradient(145deg,#ff9dbd1b,#9c79cf12);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;color:#f6d8e4;font-size:10px}.memory-tile b{font-size:22px;font-weight:400}
     .wish-panel{width:100%;margin-top:20px;padding:20px;border:1px solid #ffcae03a;border-radius:22px;background:linear-gradient(135deg,#ff9dbd12,#b99aff0b)}.wish-panel .wish{margin:0 0 7px;font-size:25px}.wish-panel p{color:#d9bfd0;font-size:12px;line-height:1.6;margin:0}
     .wish-stars{display:flex;justify-content:center;gap:15px;margin:14px 0 2px;color:#ffdfa8;font-size:19px}.wish-stars span{animation:twinkle 1.8s infinite}.wish-stars span:nth-child(2){animation-delay:.4s}.wish-stars span:nth-child(3){animation-delay:.8s}
-    .signature{margin-top:18px}.primary{position:relative;overflow:hidden}.primary:after{content:"";position:absolute;top:-30%;left:-50%;width:35%;height:160%;background:#ffffff55;transform:rotate(25deg);animation:shine 4s infinite}@keyframes shine{0%,65%{left:-50%}100%{left:140%}}
+    .primary{position:relative;overflow:hidden}.primary:after{content:"";position:absolute;top:-30%;left:-50%;width:35%;height:160%;background:#ffffff55;transform:rotate(25deg);animation:shine 4s infinite}@keyframes shine{0%,65%{left:-50%}100%{left:140%}}
     .sound{backdrop-filter:blur(12px);box-shadow:0 6px 24px #0003}.floating-note{position:absolute;color:#ffbfd2;font-family:"Playfair Display",serif;font-style:italic;font-size:13px;opacity:.75;animation:float 5s ease-in-out infinite}.floating-note.one{left:5%;top:26%;transform:rotate(-9deg)}.floating-note.two{right:4%;top:45%;animation-delay:1s;transform:rotate(8deg)}
     @media(min-width:481px){body{background:#100918}.app{box-shadow:0 0 90px #0008}}
 
@@ -118,20 +203,36 @@
     </section>
 
     <section class="screen celebrate hidden" id="celebrate">
-      <div class="birthday-badge reveal">✦ &nbsp; Today the universe celebrates you &nbsp; ✦</div>
+      <div class="birthday-badge reveal">✦   Today the universe celebrates you   ✦</div>
       <h2 class="reveal">Happy Birthday,<br><span>my Samantha!</span></h2>
       <p class="sub reveal">A wish for the girl who makes ordinary moments feel like magic.</p>
       <div class="cake-stage reveal" aria-label="Animated birthday cake with a glowing candle"><div class="sparkle-ring"></div>
         <span class="cake-spark" style="left:12%;top:35%">✦</span><span class="cake-spark" style="right:12%;top:18%">✧</span><span class="cake-spark" style="right:8%;bottom:25%">✦</span>
         <div class="cake"><div class="candle"><div class="flame"></div></div><div class="cake-top"></div><div class="cake-side"></div><div class="plate"></div></div>
       </div>
-      <div class="message-card reveal">
-        <div class="eyebrow" style="margin-bottom:13px">✧ A note from my heart ✧</div><div class="letter-title">To my sweetest Samantha,</div>
-        <p>To my favourite person,</p>
-        <p style="margin-top:10px">I hope this new chapter brings you a thousand reasons to smile, dreams that come true, and beautiful little surprises around every corner. You deserve all the happiness in the world — not just today, but every single day.</p>
-        <p style="margin-top:10px">Thank you for being you, for your laughter, your warmth, and the magic you bring into my life. If I could make one wish for you, it would be that you always see yourself the way I see you: absolutely wonderful.</p>
-        <div class="signature">With all my love ♡</div>
+
+      <!-- Romantic Notebook Note -->
+      <div class="notebook-wrap reveal">
+        <div class="notebook-tape" aria-hidden="true"></div>
+        <div class="message-card">
+          <div class="notebook-holes" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+          <div class="notebook-date">
+            <span>✧ Page 01 · A note from my heart</span>
+            <span>♡</span>
+          </div>
+          <div class="letter-title">To my sweetest Samantha,</div>
+          <p class="salutation">To my favourite person,</p>
+          <p>I hope this new chapter brings you a thousand reasons to smile, dreams that come true, and beautiful little surprises around every corner. You deserve all the happiness in the world — not just today, but every single day.</p>
+          <p>Thank you for being you, for your laughter, your warmth, and the magic you bring into my life. If I could make one wish for you, it would be that you always see yourself the way I see you: absolutely wonderful.</p>
+          <div class="signature-row">
+            <div class="signature">With all my love ♡</div>
+            <div class="wax-seal" aria-hidden="true">♥</div>
+          </div>
+        </div>
       </div>
+
       <div class="memory-strip reveal"><div class="memory-tile"><b>♡</b><span>Endless love</span></div><div class="memory-tile"><b>✧</b><span>Little wonders</span></div><div class="memory-tile"><b>∞</b><span>Us, always</span></div></div><div class="wish-panel reveal"><div class="wish">Make a wish, beautiful ✨</div><p>Close your eyes, take a deep breath, and send your biggest dream into the stars.</p><div class="wish-stars"><span>✦</span><span>✧</span><span>✦</span></div></div>
       <div class="bottom-actions reveal">
         <button class="btn secondary" id="wishBtn">Make a wish ✨</button>
